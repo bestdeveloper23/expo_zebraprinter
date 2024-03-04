@@ -1,0 +1,10 @@
+{
+    "nav": {
+        "home": "Home",
+        "orders": "ORDERS",
+        "inventory": "INVENTORY",
+        "availability": "AVAILABILITY",
+        "appliances": "APPLIANCES",
+        "orderhistory": "ORDER HISTORY"
+    }
+}
