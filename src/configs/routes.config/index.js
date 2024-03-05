@@ -7,19 +7,34 @@ export const protectedRoutes = [
     {
         key: 'orders',
         path: '/orders',
-        component: React.lazy(() => import('views/page/Orders')),
+        component: React.lazy(() => import('views/sales/OrderList')),
+        authority: [],
+    },
+    {
+        key: 'orderdetails',
+        path: '/order-details/:orderId',
+        component: React.lazy(() => import('views/sales/OrderDetails')),
         authority: [],
     },
     {
         key: 'inventory',
         path: '/inventory',
-        component: React.lazy(() => import('views/page/Inventory')),
+        component: React.lazy(() => import('views/sales/ProductList')),
         authority: [],
+    },
+    {
+        key: 'inventoryEdit',
+        path: '/product-edit/:productId',
+        component: React.lazy(() => import('views/sales/ProductEdit')),
+        authority: [],
+        meta: {
+            header: 'Edit Product',
+        },
     },
     {
         key: 'availability',
         path: '/availability',
-        component: React.lazy(() => import('views/page/Availability')),
+        component: React.lazy(() => import('views/sales/ProductList')),
         authority: [],
     },
     {
@@ -27,6 +42,15 @@ export const protectedRoutes = [
         path: '/appliances',
         component: React.lazy(() => import('views/page/Appliances')),
         authority: [],
+    },
+    {
+        key: 'applianceEdit',
+        path: '/product-edit/:productId',
+        component: React.lazy(() => import('views/sales/ProductEdit')),
+        authority: [],
+        meta: {
+            header: 'Edit Appliance',
+        },
     },
     {
         key: 'history',
