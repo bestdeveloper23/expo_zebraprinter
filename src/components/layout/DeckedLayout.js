@@ -6,12 +6,26 @@ import HeaderLogo from 'components/template/HeaderLogo'
 import SecondaryHeader from 'components/template/SecondaryHeader'
 import MobileNav from 'components/template/MobileNav'
 import View from 'views'
+import { Status } from 'components/template/Status'
+import { Alerts } from 'components/template/Alerts'
 
 const HeaderActionsStart = () => {
     return (
         <>
             <HeaderLogo />
             <MobileNav />
+        </>
+    )
+}
+
+const HeaderActionsMiddle = () => {
+    return (
+        <>
+            <div className="flex gap-2 xs:gap-9">
+                <Status />
+                <Alerts />
+            </div>
+        
         </>
     )
 }
@@ -34,6 +48,7 @@ const DeckedLayout = () => {
                         container
                         className="shadow dark:shadow-2xl"
                         headerStart={<HeaderActionsStart />}
+                        headerMiddle={<HeaderActionsMiddle />}
                         headerEnd={<HeaderActionsEnd />}
                     />
                     <SecondaryHeader contained />

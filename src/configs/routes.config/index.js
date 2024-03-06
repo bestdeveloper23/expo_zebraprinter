@@ -58,4 +58,22 @@ export const protectedRoutes = [
         component: React.lazy(() => import('views/page/History')),
         authority: [],
     },
+    {
+        key: 'status.monitor',
+        path: '/status/monitor',
+        component: React.lazy(() => import('views/page/StatusMonitor')),
+        authority: [],
+        meta: {
+            header: 'Monitoring Status',
+        },
+    },
+    {
+        key: 'alert.details',
+        path: '/alert/details',
+        component: React.lazy(() => import('views/page/Alerts')),
+        authority: [],
+        meta: {
+            header: 'Alerts',
+        }
+    }
 ]
