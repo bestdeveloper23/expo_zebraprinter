@@ -1,21 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import {
-    apiGetSalesProducts,
-    apiDeleteSalesProducts,
-} from 'services/SalesService'
+import { apiGetExpoAlerts } from 'services/ExpoService'
 
-export const getProducts = createAsyncThunk(
-    'salesProductList/data/getProducts',
+export const getAlerts = createAsyncThunk(
+    'Alerts/data/getAlerts',
     async (data) => {
-        const response = await apiGetSalesProducts(data)
+        const response = await apiGetExpoAlerts(data)
         return response.data
     }
 )
 
-export const deleteProduct = async (data) => {
-    const response = await apiDeleteSalesProducts(data)
-    return response.data
-}
+export const setUnread = createAsyncThunk(
+    'Alerts/data/setParms',
+    async (data) => {
+        return data
+    }
+)
 
 export const initialTableData = {
     total: 0,
@@ -26,26 +25,20 @@ export const initialTableData = {
         order: '',
         key: '',
     },
-}
-
-export const initialFilterData = {
-    name: '',
-    category: ['bags', 'cloths', 'devices', 'shoes', 'watches'],
-    status: [0, 1, 2],
-    productStatus: 0,
+    type: 'all',
 }
 
 const dataSlice = createSlice({
     name: 'salesProductList/data',
     initialState: {
         loading: false,
-        productList: [],
+        alertList: [],
         tableData: initialTableData,
-        filterData: initialFilterData,
+        filterData: false,
     },
     reducers: {
-        updateProductList: (state, action) => {
-            state.productList = action.payload
+        updateAlertList: (state, action) => {
+            state.alertList = action.payload
         },
         setTableData: (state, action) => {
             state.tableData = action.payload
@@ -53,23 +46,26 @@ const dataSlice = createSlice({
         setFilterData: (state, action) => {
             state.filterData = action.payload
         },
+        // setUnread: (state, action) => {
+        //     state.unread = action.payload
+        // },
     },
     extraReducers: {
-        [getProducts.fulfilled]: (state, action) => {
-            state.productList = action.payload.data
+        [getAlerts.fulfilled]: (state, action) => {
+            state.alertList = action.payload.data
             state.tableData.total = action.payload.total
             state.loading = false
         },
-        [getProducts.pending]: (state) => {
+        [getAlerts.pending]: (state) => {
             state.loading = true
+        },
+        [setUnread.fulfilled]: (state, action) => {
+            state.tableData.type = action.payload
         },
     },
 })
 
-export const {
-    updateProductList,
-    setTableData,
-    setFilterData,
-} = dataSlice.actions
+export const { updateAlertList, setTableData, setFilterData } =
+    dataSlice.actions
 
 export default dataSlice.reducer

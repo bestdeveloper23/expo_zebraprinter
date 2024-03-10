@@ -8,8 +8,9 @@ import {
     ordersData,
     orderDetailsData,
 } from './data/salesData'
+import { expoDashboardData, expoAlerts } from './data/expoData'
 
-import { authFakeApi, salesFakeApi } from './fakeApi'
+import { authFakeApi, salesFakeApi, expoFakeApi } from './fakeApi'
 
 const { apiPrefix } = appConfig
 
@@ -23,6 +24,8 @@ export default function mockServer({ environment = 'test' }) {
                 ordersData,
                 orderDetailsData,
                 salesDashboardData,
+                expoDashboardData,
+                expoAlerts
             })
         },
         routes() {
@@ -36,6 +39,7 @@ export default function mockServer({ environment = 'test' }) {
 
             authFakeApi(this, apiPrefix)
             salesFakeApi(this, apiPrefix)
+            expoFakeApi(this, apiPrefix)
         },
     })
 }

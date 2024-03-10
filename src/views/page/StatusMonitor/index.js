@@ -1,6 +1,6 @@
 import React from 'react'
-import { RefreshStatus } from './refresh'
-import StatusForm from './StatusForm'
+import { RefreshStatus } from './components/refresh'
+import StatusForm from './components/StatusForm'
 
 const SignIn = () => {
     return (

@@ -2,7 +2,7 @@ import React from 'react'
 import { toast, Notification } from 'components/ui'
 import { ConfirmDialog } from 'components/shared'
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleDeleteConfirmation } from '../store/stateSlice'
+import { toggleDeleteConfirmation } from '../../OrderList/store/stateSlice'
 import { deleteProduct, getProducts } from '../store/dataSlice'
 
 const ProductDeleteConfirmation = () => {

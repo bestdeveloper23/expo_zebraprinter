@@ -1,22 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 const stateSlice = createSlice({
-    name: 'salesProductList/state',
+    name: 'salesOrderList/state',
     initialState: {
-        deleteConfirmation: false,
-        selectedProduct: '',
+        selectedRows: [],
+        selectedRow: [],
     },
     reducers: {
-        toggleDeleteConfirmation: (state, action) => {
-            state.deleteConfirmation = action.payload
+        setSelectedRows: (state, action) => {
+            state.selectedRows = action.payload
         },
-        setSelectedProduct: (state, action) => {
-            state.selectedProduct = action.payload
+        setSelectedRow: (state, action) => {
+            state.selectedRow = action.payload
         },
     },
 })
 
-export const { toggleDeleteConfirmation, setSelectedProduct } =
-    stateSlice.actions
+export const {
+    setSelectedRows,
+    setSelectedRow,
+} = stateSlice.actions
 
 export default stateSlice.reducer

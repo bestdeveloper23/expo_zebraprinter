@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import state from './stateSlice'
+import state from '../../OrderList/store/stateSlice'
 import data from './dataSlice'
 
 const reducer = combineReducers({

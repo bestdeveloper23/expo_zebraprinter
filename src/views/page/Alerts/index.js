@@ -1,6 +1,10 @@
 import { AdaptableCard } from 'components/shared'
 import AlertTable from './components/AlertTable'
 import AlertTools from './components/AlertTools'
+import { injectReducer } from 'store'
+import reducer from './store'
+
+injectReducer('Alerts', reducer)
 
 const AlertList = () => {
     return (

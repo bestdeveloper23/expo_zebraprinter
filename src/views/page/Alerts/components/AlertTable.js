@@ -2,58 +2,54 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import { Avatar, Badge } from 'components/ui'
 import { DataTable } from 'components/shared'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts, setTableData } from '../store/dataSlice'
+import { getAlerts, setTableData } from '../store/dataSlice'
 import cloneDeep from 'lodash/cloneDeep'
 
-const inventoryStatusColor = {
-    0: {
-        label: 'In Stock',
+const alertType = {
+    warning: {
+        type: 'warning',
         dotClass: 'bg-emerald-500',
         textClass: 'text-emerald-500',
     },
-    1: {
-        label: 'Limited',
+    info: {
+        type: 'info',
         dotClass: 'bg-amber-500',
         textClass: 'text-amber-500',
     },
-    2: {
-        label: 'Out of Stock',
+    error: {
+        type: 'error',
         dotClass: 'bg-red-500',
         textClass: 'text-red-500',
     },
 }
 
-const ProductColumn = ({ row }) => {
-    
+const MessageColumn = ({ row }) => {
     return (
         <div className="flex items-center">
-            <span className={`ml-2 rtl:mr-2 font-semibold`}>{row.name}</span>
+            <span className={`ml-2 rtl:mr-2 font-semibold`}>{row.message}</span>
         </div>
     )
 }
 
 const AlertTable = () => {
-
     const tableRef = useRef(null)
 
     const dispatch = useDispatch()
 
-    const { pageIndex, pageSize, sort, query, total } = useSelector(
-        (state) => state.salesProductList.data.tableData
+    const { pageIndex, pageSize, sort, query, total, type } = useSelector(
+        (state) => state.Alerts.data.tableData
     )
 
-    const filterData = useSelector(
-        (state) => state.salesProductList.data.filterData
-    )
+    const filterData = useSelector((state) => state.Alerts.data.filterData)
 
-    const loading = useSelector((state) => state.salesProductList.data.loading)
-    
-    const data = useSelector((state) => state.salesProductList.data.productList)
+    const loading = useSelector((state) => state.Alerts.data.loading)
+
+    const data = useSelector((state) => state.Alerts.data.alertList)
 
     useEffect(() => {
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, sort])
+    }, [pageIndex, pageSize, sort, type])
 
     useEffect(() => {
         if (tableRef) {
@@ -67,8 +63,9 @@ const AlertTable = () => {
     )
 
     const fetchData = () => {
-        dispatch(getProducts({ pageIndex, pageSize, sort, query, filterData }))
+        dispatch(getAlerts({ pageIndex, pageSize, sort, query, type }))
     }
+    console.log(data)
 
     const columns = useMemo(
         () => [
@@ -77,33 +74,29 @@ const AlertTable = () => {
                 accessorKey: 'name',
                 cell: (props) => {
                     const row = props.row.original
-                    return <ProductColumn row={row} />
-                },
-            },
-            {
-                header: 'Type',
-                accessorKey: 'category',
-                cell: (props) => {
-                    const row = props.row.original
-                    return <span className="capitalize">{row.category}</span>
+                    return <MessageColumn row={row} />
                 },
             },
             {
                 header: 'Status',
                 accessorKey: 'status',
                 cell: (props) => {
-                    const { status } = props.row.original
+                    const row = props.row.original
+                    return <span className="capitalize">{row.read ? 'Read': "Unread"}</span>
+                },
+            },
+            {
+                header: 'Type',
+                accessorKey: 'type',
+                cell: (props) => {
+                    const { type } = props.row.original
                     return (
                         <div className="flex items-center gap-2">
-                            <Badge
-                                className={
-                                    inventoryStatusColor[status].dotClass
-                                }
-                            />
+                            <Badge className={alertType[type].dotClass} />
                             <span
-                                className={`capitalize font-semibold ${inventoryStatusColor[status].textClass}`}
+                                className={`capitalize font-semibold ${alertType[type].textClass}`}
                             >
-                                {inventoryStatusColor[status].label}
+                                {alertType[type].type}
                             </span>
                         </div>
                     )
