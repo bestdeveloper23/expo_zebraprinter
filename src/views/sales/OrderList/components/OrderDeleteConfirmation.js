@@ -7,7 +7,7 @@ import {
     setSelectedRow,
     setSelectedRows,
 } from '../store/stateSlice'
-import { deleteOrders, getOrders } from '../store/dataSlice'
+import { getOrders } from '../store/dataSlice'
 
 const OrderDeleteConfirmation = () => {
     const dispatch = useDispatch()
@@ -36,14 +36,14 @@ const OrderDeleteConfirmation = () => {
         dispatch(setDeleteMode(''))
 
         if (deleteMode === 'single') {
-            const success = await deleteOrders({ id: selectedRow })
-            deleteSucceed(success)
+            // const success = await deleteOrders({ id: selectedRow })
+            // deleteSucceed(success)
             dispatch(setSelectedRow([]))
         }
 
         if (deleteMode === 'batch') {
-            const success = await deleteOrders({ id: selectedRows })
-            deleteSucceed(success, selectedRows.length)
+            // const success = await deleteOrders({ id: selectedRows })
+            // deleteSucceed(success, selectedRows.length)
             dispatch(setSelectedRows([]))
         }
     }

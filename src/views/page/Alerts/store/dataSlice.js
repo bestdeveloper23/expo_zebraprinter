@@ -46,9 +46,6 @@ const dataSlice = createSlice({
         setFilterData: (state, action) => {
             state.filterData = action.payload
         },
-        // setUnread: (state, action) => {
-        //     state.unread = action.payload
-        // },
     },
     extraReducers: {
         [getAlerts.fulfilled]: (state, action) => {

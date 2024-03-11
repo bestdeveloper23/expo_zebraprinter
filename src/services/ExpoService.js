@@ -87,7 +87,7 @@ export async function apiGetExpoLiveOrders(data) {
     return ApiService.fetchData({
         url: '/orders/live',
         method: 'get',
-        data,
+        params: data,
     })
 }
 
@@ -95,16 +95,14 @@ export async function apiGetExpoHistoryOrders(data) {
     return ApiService.fetchData({
         url: '/orders/historical',
         method: 'get',
-        data,
+        params: data,
     })
 }
 
-export async function apiGetExpoOrderDetail(reqdata) {
-    const data = reqdata.data
+export async function apiGetExpoOrderDetails(data) {
     return ApiService.fetchData({
-        url: `/orders/${reqdata.id}`,
+        url: `/orders/${data.id}`,
         method: 'get',
-        data,
     })
 }
 

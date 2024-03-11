@@ -8,10 +8,10 @@ import ShippingInfo from './components/ShippingInfo'
 import Activity from './components/Activity'
 import CustomerInfo from './components/CustomerInfo'
 import { HiOutlineCalendar } from 'react-icons/hi'
-import { apiGetSalesOrderDetails } from 'services/SalesService'
 import { useLocation } from 'react-router-dom'
 import isEmpty from 'lodash/isEmpty'
 import dayjs from 'dayjs'
+import { apiGetExpoOrderDetails } from 'services/ExpoService'
 
 const paymentStatus = {
     0: {
@@ -52,7 +52,7 @@ const OrderDetails = () => {
         )
         if (id) {
             setLoading(true)
-            const response = await apiGetSalesOrderDetails({ id })
+            const response = await apiGetExpoOrderDetails({ id })
             if (response) {
                 setLoading(false)
                 setData(response.data)

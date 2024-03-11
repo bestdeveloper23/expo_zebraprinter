@@ -48,4 +48,36 @@ export default function expoFakeApi(server, apiPrefix) {
         }
         return responseData
     })
+
+    server.get(`${apiPrefix}/orders/live`, (schema, request) => {
+        const { pageIndex, pageSize, sort, query, type } = request.queryParams
+        const { order, key } = sort
+        const db = schema.db.expoOrders
+        let data = db
+        let total = data.length
+        if (query) {
+            data = wildCardSearch(data, query)
+            total = data.length
+        }
+
+        data = paginate(data, pageSize, pageIndex)
+        const responseData = {
+            data: data,
+            total: total,
+        }
+
+        return responseData
+    })
+
+    server.get(`${apiPrefix}/orders/:id`, (schema, request) => {
+        const id = request.params.id
+        const db = schema.db.expoOrders
+        let idx = db.findIndex((elm) => elm.orderId === id)
+        const responseData = {
+            data: [],
+        }
+        if (idx != -1) responseData.data = db[idx].items
+        console.log(db[idx].items)
+        return responseData
+    })
 }

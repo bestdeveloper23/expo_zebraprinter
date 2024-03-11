@@ -1,12 +1,11 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 
 const stateSlice = createSlice({
-    name: 'salesOrderList/state',
+    name: 'expoOrderItems/state',
     initialState: {
         selectedRows: [],
         selectedRow: [],
         deleteMode: '',
-        printShow: false
     },
     reducers: {
         setSelectedRows: (state, action) => {
@@ -16,14 +15,11 @@ const stateSlice = createSlice({
             state.selectedRow = action.payload
         },
         addRowItem: (state, { payload }) => {
-            // const currentState = current(state)
-            // if (!currentState.selectedRows.includes(payload)) {
-            //     return {
-            //         selectedRows: [...currentState.selectedRows, ...payload],
-            //     }
-            // }
-            return {
-                selectedRows: payload,
+            const currentState = current(state)
+            if (!currentState.selectedRows.includes(payload)) {
+                return {
+                    selectedRows: [...currentState.selectedRows, ...payload],
+                }
             }
         },
         removeRowItem: (state, { payload }) => {
@@ -39,9 +35,6 @@ const stateSlice = createSlice({
         setDeleteMode: (state, action) => {
             state.deleteMode = action.payload
         },
-        setPrintShow: (state, action) => {
-            state.printShow = action.payload
-        }
     },
 })
 
@@ -52,7 +45,6 @@ export const {
     removeRowItem,
     toggleDeleteConfirmation,
     setDeleteMode,
-    setPrintShow
 } = stateSlice.actions
 
 export default stateSlice.reducer
